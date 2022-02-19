@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GitHub User Search</string>
+    <string name="offlineMode">Offline Mode</string>
+    <string name="hintInputSearch">filter by name</string>
+    <string name="listEmpty">no data</string>
+    <string name="detailUserFollowers">Followers: %d</string>
+    <string name="detailUserFollowing">Following: %d</string>
+    <string name="detailUserPublicRepos">Public Repos: %d</string>
+    <string name="detailUserPublicGists">Public Gists: %d</string>
+    <string name="visitUser">visit</string>
+</resources>

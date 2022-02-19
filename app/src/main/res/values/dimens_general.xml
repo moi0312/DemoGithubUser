@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSizeTitle">21sp</dimen>
+    <dimen name="textSizeContent">14sp</dimen>
+
+    <dimen name="paddingS">4dp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="paddingL">12dp</dimen>
+
+    <dimen name="marginXS">8dp</dimen>
+    <dimen name="marginS">12dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="marginL">20dp</dimen>
+    <dimen name="marginXL">24dp</dimen>
+    <dimen name="margin2XL">28dp</dimen>
+    <dimen name="margin3XL">32dp</dimen>
+    <dimen name="margin4XL">36dp</dimen>
+    <dimen name="margin5XL">40dp</dimen>
+</resources>

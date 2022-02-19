@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="GithubUserListText" parent="ContentText">
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@color/purple_500_A50</item>
+    </style>
+
+    <style name="GithubUserDetailTitle" parent="TitleText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="GithubUserDetailContent" parent="ContentText">
+    </style>
+
+    <style name="GithubUserButton">
+        <item name="android:textColor">@color/gray66</item>
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+</resources>
