@@ -1,11 +1,11 @@
 package com.edlo.mydemoapp.repository.net.github
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.edlo.mydemoapp.BuildConfig
 import com.edlo.mydemoapp.repository.net.ApiResult
 import com.edlo.mydemoapp.repository.net.callApi
 import com.edlo.mydemoapp.repository.net.github.data.GitHubBaseResponse
 import com.edlo.mydemoapp.repository.net.github.data.GithubUserData
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -48,10 +48,9 @@ class ApiGitHubHelper @Inject constructor() {
         service = retrofit.create(ApiGitHubService::class.java)
     }
 
-    suspend fun listUsers(q: String, sort: String? = null, order: String? = null,
-              perPage: Int? = null, page: Int? = null): ApiResult<GitHubBaseResponse<List<GithubUserData>>?> {
+    suspend fun listUsers(q: String, page: Int = 1): ApiResult<GitHubBaseResponse<List<GithubUserData>>?> {
         return callApi(dispatcher) {
-            service.listUsers(q, sort, order, perPage, page)?.await()
+            service.listUsers(q, page)?.await()
         }
     }
 

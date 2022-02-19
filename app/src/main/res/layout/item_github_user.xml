@@ -18,7 +18,7 @@
         android:id="@+id/txtName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/GithubUserListText"
+        style="@style/ListText"
         app:layout_constraintBottom_toBottomOf="@+id/imgUser"
         app:layout_constraintEnd_toEndOf="@+id/imgUser"
         app:layout_constraintStart_toStartOf="@+id/imgUser" />

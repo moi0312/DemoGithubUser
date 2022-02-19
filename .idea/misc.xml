@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.14444444444444443" />
+        <entry key="app/src/main/res/drawable/ic_arrow_back.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/shape_avatar_thumb.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_drama_thumb.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_search_bg.xml" value="0.1" />
@@ -11,6 +12,7 @@
         <entry key="app/src/main/res/drawable/shape_thumb.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/states_search_bg.xml" value="0.218" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.15185185185185185" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_user_detail.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/item_github_user.xml" value="0.159375" />

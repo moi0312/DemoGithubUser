@@ -6,4 +6,4 @@ data class GitHubBaseResponse<T> (
     @SerializedName("total_count") val totalCount: Int,
     @SerializedName("incomplete_results") val incomplete_results: Boolean,
     @SerializedName("items") val items: T,
-) { }
+)

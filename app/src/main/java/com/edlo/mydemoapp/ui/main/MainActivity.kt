@@ -6,14 +6,16 @@ import android.os.IBinder
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import com.edlo.mydemoapp.databinding.ActivityMainBinding
+import com.edlo.mydemoapp.helper.DialogHelper
 import com.edlo.mydemoapp.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-//    @Inject lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    @Inject lateinit var dialogHelper: DialogHelper
 
     private lateinit var binding: ActivityMainBinding
 
@@ -35,9 +37,20 @@ class MainActivity : BaseActivity() {
 
     override fun addDisposable() {
         disposable.addAll(
+            subscribeLoading(),
             subscribeSearchUser(),
             subscribeSelectedUser()
         )
+    }
+
+    private fun subscribeLoading(): Disposable {
+        return viewModel.onLoading.subscribe { isLoading ->
+            if(isLoading) {
+                dialogHelper.showProgressDialog(this)
+            } else {
+                dialogHelper.hideProgressDialog(this)
+            }
+        }
     }
 
     private fun subscribeSearchUser(): Disposable {

@@ -7,19 +7,26 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
+import com.edlo.mydemoapp.R
 import com.edlo.mydemoapp.databinding.FragmentListBinding
 import com.edlo.mydemoapp.ui.adapter.GithubUserAdapter
 import com.edlo.mydemoapp.ui.base.BaseFragment
+import com.edlo.mydemoapp.ui.base.BaseViewModel
+import com.edlo.mydemoapp.util.Consts.Companion.OVER_SCROLL_OFFSET
 import kotlinx.coroutines.launch
+import me.everything.android.ui.overscroll.IOverScrollState
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 class GithubUsersFragment : BaseFragment<FragmentListBinding>() {
 
     private lateinit var viewModel: GithubUsersViewModel
     private var adapter = GithubUserAdapter()
+    private var isOverScroll = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initToolbar(getString(R.string.app_name))
         initView()
         initViewModelObserve()
     }
@@ -39,6 +46,25 @@ class GithubUsersFragment : BaseFragment<FragmentListBinding>() {
             viewModel.onSelectedUser.onNext(data)
         }
 
+        var decor = OverScrollDecoratorHelper.setUpOverScroll(
+            binding.listView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
+        decor.setOverScrollUpdateListener{ decor, state, offset ->
+//            Log.e(msg = "overScroll: $offset")
+            isOverScroll = offset < -OVER_SCROLL_OFFSET
+        }
+        decor.setOverScrollStateListener { decor, oldState, newState ->
+            if (isOverScroll && newState == IOverScrollState.STATE_BOUNCE_BACK) {
+                when(oldState) {
+//                    IOverScrollState.STATE_DRAG_START_SIDE -> viewModel.onScrollReachesEdge.onNext(BaseViewModel.SCROLL_OVER_TOP)
+                    IOverScrollState.STATE_DRAG_END_SIDE -> {
+                        viewModel.onScrollReachesEdge.onNext(BaseViewModel.SCROLL_OVER_BOTTOM)
+                    }
+                    else -> {}
+                }
+            }
+        }
+
+
         binding.imgClearSearch.setOnClickListener {
             viewModel.listGitHubUsers("")
         }
@@ -54,9 +80,6 @@ class GithubUsersFragment : BaseFragment<FragmentListBinding>() {
     }
 
     private fun initViewModelObserve() {
-        lifecycleScope.launch {
-//            viewModel.getGitHubUsers().collectLatest { adapter.submitData(it) }
-        }
 
         viewModel.getGitHubUsers().observe(requireActivity() as LifecycleOwner, Observer {
             adapter.data = it
@@ -81,5 +104,18 @@ class GithubUsersFragment : BaseFragment<FragmentListBinding>() {
         return FragmentListBinding.inflate(inflater, container, false)
     }
 
-    override fun addDisposable() { }
+    override fun addDisposable() {
+        disposable.add(
+            viewModel.onScrollReachesEdge.subscribe {
+                when(it) {
+//                    BaseViewModel.SCROLL_OVER_TOP -> { }
+                    BaseViewModel.SCROLL_OVER_BOTTOM -> {
+                        viewModel.getMoreUsers()
+                    }
+                    else -> { }
+                }
+            }
+        )
+
+    }
 }

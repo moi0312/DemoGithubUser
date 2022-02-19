@@ -1,6 +1,11 @@
 package com.edlo.mydemoapp.ui.base
 
+import android.os.Bundle
+import android.view.WindowManager
 import io.reactivex.disposables.CompositeDisposable
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 abstract class BaseActivity : AppActivity() {
 
@@ -9,8 +14,13 @@ abstract class BaseActivity : AppActivity() {
     abstract fun initViewModel()
     abstract fun addDisposable()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onStart() {
         super.onStart()
+        supportActionBar?.hide()
         addDisposable()
     }
 

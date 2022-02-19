@@ -30,6 +30,7 @@ class GithubUserDetailFragment : BaseFragment<FragmentUserDetailBinding>() {
 
     override fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity() as ViewModelStoreOwner).get(GithubUsersViewModel::class.java)
+        initToolbar(viewModel.currentSelectedUser.value!!.login)
         viewModel.getUserDatails()
     }
 

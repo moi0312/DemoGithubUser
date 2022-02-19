@@ -8,8 +8,8 @@ interface GithubUserDao {
     @Query("SELECT *, rowid FROM table_github_user")
     suspend fun getAll(): List<GithubUserData>
 
-    @Query("SELECT *, rowid FROM table_github_user WHERE login LIKE (:login)")
-    suspend fun findByLogin(login: String): List<GithubUserData>
+    @Query("SELECT *, rowid FROM table_github_user WHERE login LIKE (:login) ORDER BY rowid ASC LIMIT :limit")
+    suspend fun findByLogin(login: String, limit: Int): List<GithubUserData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(users: List<GithubUserData>)

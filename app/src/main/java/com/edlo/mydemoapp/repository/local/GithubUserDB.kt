@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.edlo.mydemoapp.MyDemoApp
 import com.edlo.mydemoapp.repository.net.github.data.GithubUserData
 import dagger.hilt.android.qualifiers.ApplicationContext
 
@@ -25,7 +24,7 @@ abstract class GithubUserDB : RoomDatabase() {
                 INSTANCE = Room.databaseBuilder( context,
                     GithubUserDB::class.java, DB_NAME )
 //                .addMigrations(MIGRATION_1_2)
-                .build()
+                    .build()
             }
             return INSTANCE!!
         }

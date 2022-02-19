@@ -5,34 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/paddingL"
     android:background="@color/purple_500"
     >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ToolbarPopupTheme"
+        app:titleTextAppearance="@style/TitleTextSize" />
 
     <ImageView
         android:id="@+id/imgUser"
         android:layout_width="@dimen/default_thumb_size"
         android:layout_height="@dimen/default_thumb_size"
         android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/btnVisit"
+        style="@style/GeneralButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/visitUser"
-        style="@style/GithubUserButton"
         android:layout_marginTop="@dimen/margin"
-        app:layout_constraintTop_toBottomOf="@+id/imgUser"
+        android:text="@string/visitUser"
         app:layout_constraintEnd_toEndOf="@+id/imgUser"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/imgUser"
+        app:layout_constraintTop_toBottomOf="@+id/imgUser" />
 
     <TextView
         android:id="@+id/txtName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/GithubUserDetailTitle"
+        style="@style/DetailTitle"
         android:layout_marginHorizontal="@dimen/margin"
         app:layout_constraintTop_toTopOf="@+id/imgUser"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +54,7 @@
 
     <TextView
         android:id="@+id/txtInfo1"
-        style="@style/GithubUserDetailContent"
+        style="@style/DetailContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
@@ -50,7 +64,7 @@
 
     <TextView
         android:id="@+id/txtInfo2"
-        style="@style/GithubUserDetailContent"
+        style="@style/DetailContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/txtInfo1"
@@ -59,7 +73,7 @@
 
     <TextView
         android:id="@+id/txtInfo3"
-        style="@style/GithubUserDetailContent"
+        style="@style/DetailContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/txtInfo2"
@@ -68,7 +82,7 @@
 
     <TextView
         android:id="@+id/txtInfo4"
-        style="@style/GithubUserDetailContent"
+        style="@style/DetailContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/txtInfo3"
