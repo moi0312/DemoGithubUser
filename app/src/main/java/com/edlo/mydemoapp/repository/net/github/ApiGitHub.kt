@@ -1,11 +1,8 @@
 package com.edlo.mydemoapp.repository.net.github
 
-import com.edlo.mydemoapp.repository.net.ApiResult
 import com.edlo.mydemoapp.repository.net.github.ApiGitHub.PAGE_ITEMS
 import com.edlo.mydemoapp.repository.net.github.ApiGitHub.SORT_ASC
-import com.edlo.mydemoapp.repository.net.github.data.GitHubBaseResponse
 import com.edlo.mydemoapp.repository.net.github.data.GithubUserData
-import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -30,6 +27,5 @@ interface ApiGitHubService {
     ): GHResponse<List<GithubUserData>>
 
     @GET(ApiGitHub.GET_USERS)
-    suspend fun getUserDatails(@Path("user") login: String,
-    ): GHResponse<GithubUserData>
+    suspend fun getUserDatails(@Path("user") login: String): GHResponse<GithubUserData>
 }
