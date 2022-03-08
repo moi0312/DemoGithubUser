@@ -1,5 +1,6 @@
 package com.edlo.mydemoapp.repository.net.github
 
+import com.edlo.mydemoapp.repository.net.ApiResult
 import com.edlo.mydemoapp.repository.net.github.ApiGitHub.PAGE_ITEMS
 import com.edlo.mydemoapp.repository.net.github.ApiGitHub.SORT_ASC
 import com.edlo.mydemoapp.repository.net.github.data.GitHubBaseResponse
@@ -23,12 +24,12 @@ object ApiGitHub {
 interface ApiGitHubService {
 
     @GET(ApiGitHub.GET_SEARCH_USERS)
-    fun listUsers( @Query("q") q: String, @Query("page") page: Int = 1,
+    suspend fun listUsers( @Query("q") q: String, @Query("page") page: Int = 1,
                    @Query("sort") sort: String = "id", @Query("order") order: String = SORT_ASC,
                    @Query("per_page") perPage: Int = PAGE_ITEMS
-    ): Deferred<GitHubBaseResponse<List<GithubUserData>>>?
+    ): ApiResult<GitHubBaseResponse<List<GithubUserData>>, Error>
 
     @GET(ApiGitHub.GET_USERS)
-    fun getUserDatails(@Path("user") login: String,
-    ): Deferred<GithubUserData>?
+    suspend fun getUserDatails(@Path("user") login: String,
+    ): ApiResult<GithubUserData, Error>
 }

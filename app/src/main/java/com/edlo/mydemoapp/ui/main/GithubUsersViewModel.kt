@@ -56,21 +56,25 @@ class GithubUsersViewModel @Inject constructor() : BaseViewModel() {
             onLoading.onNext(true)
             viewModelScope.launch {
                 var dao = githubUserDB.githubUserDao()
-                val result = apiGitHubHelper.listUsers(key, page = currentPage.value as Int)
-                when (result) {
+                when (val result = apiGitHubHelper.listUsers(key, page = currentPage.value as Int)) {
                     is ApiResult.Success -> {
-                        result.value?.items?.let { users ->
-                            noMoreData = users.size < PAGE_ITEMS
-                            dao.insertAll(users)
-                            postSearchResultsFromDB()
-                        }
+                        val users = result.body.items
+                        noMoreData = users.size < PAGE_ITEMS
+                        dao.insertAll(users)
+                        postSearchResultsFromDB()
                     }
                     is ApiResult.NetworkError -> {
                         postSearchResultsFromDB()
                     }
+                    is ApiResult.ApiError -> {
+                        onLoading.onNext(false)
+                        Log.e(msg = "listData fail: ApiError -> code: ${result.code}, ${result.body}" )
+                    }
                     is ApiResult.GenericError -> {
                         onLoading.onNext(false)
-                        Log.e(msg = "listData fail: GenericError -> code${result.code} error: ${result.error}" )
+                        result.error?.let {
+                            Log.e(msg = "listData fail: GenericError -> ${it.message}" )
+                        }
                     }
                 }
             }
@@ -88,23 +92,23 @@ class GithubUsersViewModel @Inject constructor() : BaseViewModel() {
             onLoading.onNext(true)
             viewModelScope.launch {
                 var dao = githubUserDB.githubUserDao()
-                val result = apiGitHubHelper.getUserDatails(user.login)
-                when (result) {
+                when (val result = apiGitHubHelper.getUserDatails(user.login)) {
                     is ApiResult.Success -> {
-                        result.value?.let { user ->
-                            dao.update(user)
-                            _currentSelectedUser.value = user
-                            onUserDetailUpdate.onNext(user)
-                            postSearchResultsFromDB()
-                        }
+                        val user = result.body
+                        dao.update(user)
+                        _currentSelectedUser.value = user
+                        onUserDetailUpdate.onNext(user)
+                        postSearchResultsFromDB()
                     }
-                    is ApiResult.NetworkError -> {
+                    is ApiResult.ApiError -> {
                         onLoading.onNext(false)
-                        Log.e(msg = "listData fail: NetworkError" )
+                        Log.e(msg = "listData fail: ApiError -> code: ${result.code}, ${result.body}" )
                     }
                     is ApiResult.GenericError -> {
                         onLoading.onNext(false)
-                        Log.e(msg = "listData fail: GenericError -> code${result.code} error: ${result.error}" )
+                        result.error?.let {
+                            Log.e(msg = "listData fail: GenericError -> ${it.message}" )
+                        }
                     }
                 }
             }
