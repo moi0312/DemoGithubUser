@@ -47,7 +47,11 @@ internal class ApiCall<S : Any, E : Any>(
             }
 
             override fun onFailure(call: Call<S>, t: Throwable) {
-                TODO("Not yet implemented")
+                val apiResult = when (t) {
+                    is IOException -> ApiResult.NetworkError(t)
+                    else -> ApiResult.GenericError(t)
+                }
+                callback.onResponse(this@ApiCall, Response.success(apiResult))
             }
         })
     }
