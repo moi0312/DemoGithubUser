@@ -3,7 +3,6 @@ package com.edlo.mydemoapp.repository.net.github
 import com.edlo.mydemoapp.BuildConfig
 import com.edlo.mydemoapp.repository.net.ApiCallAdapterFactory
 import com.edlo.mydemoapp.repository.net.ApiResult
-import com.edlo.mydemoapp.repository.net.github.data.GitHubBaseResponse
 import com.edlo.mydemoapp.repository.net.github.data.GithubUserData
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,6 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
+
+typealias GHResponse<S> = ApiResult<S, Error>
 
 @Singleton
 class ApiGitHubHelper @Inject constructor() {
@@ -44,11 +45,11 @@ class ApiGitHubHelper @Inject constructor() {
         service = retrofit.create(ApiGitHubService::class.java)
     }
 
-    suspend fun listUsers(q: String, page: Int = 1): ApiResult<GitHubBaseResponse<List<GithubUserData>>, Error> {
+    suspend fun listUsers(q: String, page: Int = 1): GHResponse<List<GithubUserData>> {
         return service.listUsers(q, page)
     }
 
-    suspend fun getUserDatails(login: String): ApiResult<GithubUserData, Error> {
+    suspend fun getUserDatails(login: String): GHResponse<GithubUserData> {
         return service.getUserDatails(login)
     }
 }

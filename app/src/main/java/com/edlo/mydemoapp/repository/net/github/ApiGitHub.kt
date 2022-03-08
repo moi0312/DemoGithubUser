@@ -27,9 +27,9 @@ interface ApiGitHubService {
     suspend fun listUsers( @Query("q") q: String, @Query("page") page: Int = 1,
                    @Query("sort") sort: String = "id", @Query("order") order: String = SORT_ASC,
                    @Query("per_page") perPage: Int = PAGE_ITEMS
-    ): ApiResult<GitHubBaseResponse<List<GithubUserData>>, Error>
+    ): GHResponse<List<GithubUserData>>
 
     @GET(ApiGitHub.GET_USERS)
     suspend fun getUserDatails(@Path("user") login: String,
-    ): ApiResult<GithubUserData, Error>
+    ): GHResponse<GithubUserData>
 }
